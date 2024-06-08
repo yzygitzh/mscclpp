@@ -378,7 +378,7 @@ __global__ void executionKernel([[maybe_unused]] int rank /*for debug*/, T* inpu
     } else if (op.type == OperationType::PUT_PACKET) {
       handlePutPacket<PacketType>(scratchSize, smChannels, op.outputChannelIndexes, op.outputOffsets, op.inputOffsets,
                                   op.nOutputs, op.size, flag);
-    } else if (op.type == OperationType::REDUCE_SEND_PACKET) {
+    } else if (op.type == OperationType::REDUCE_PACKET || op.type == OperationType::REDUCE_SEND_PACKET) {
       T* dst = getBuffer(input, output, scratch, op.dstBufferType);
       T* src = getBuffer(input, output, scratch, op.srcBufferType);
       handleReduceSendPacket<T, PacketType>(dst, op.dstOffset, src, op.srcOffset, scratch, scratchSize, op.inputOffsets,
